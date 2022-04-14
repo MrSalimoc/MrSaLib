@@ -1,6 +1,6 @@
 local _libButtons = {}
 
-function createButton(text, minX, minY, maxX, maxY, buttonType, color, clickCallback)
+function createButton(text, minX, minY, maxX, maxY, buttonType, color, clickCallback, defaultState)
     local _newButton = {}
     _newButton.text = text
     _newButton.minX = minX
@@ -11,7 +11,13 @@ function createButton(text, minX, minY, maxX, maxY, buttonType, color, clickCall
     _newButton.color = color
     _newButton.clickCallback = clickCallback
     if buttonType == "toggle" then
-        _newButton.toggled = true
+        if defaultState == true then
+            _newButton.toggled = true
+        elseif defaultState == false then
+            _newButton.toggled = false
+        else
+            _newButton.toggled = true
+        end
     end
     table.insert(_libButtons, _newButton)
 end
