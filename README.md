@@ -4,7 +4,41 @@ CC: Tweaked LUA API for computers.
 ## Install
 You can install the lib with the following command inside Computer terminal.
 ```
-pastebin get XXXXXX install
+pastebin get jZN0hUQG mrsalib.lua
+```
+In order to make it work in your program you'll need thoses lines:
+```LUA
+    os.loadAPI("mrsalib.lua")
+
+    while true do
+        mrsalib._drawButtons(true)
+        mrsalib.onClick({os.pullEvent("mouse_click")})
+    end
+```
+### Example
+Here an example of a button in the center of the screen. When toggled on it will power redstone from the back of the computer.
+In order to make it work in your program you'll need thoses lines (`pastebin get 8Hm0Br0n example`):
+```LUA
+    os.loadAPI("mrsalib.lua")
+    local maxX, maxY = term.getSize()
+    local outputSignal = false
+
+    function setRedstone()
+        if outputSignal == false then
+            redstone.setOutput("back", true)
+            outputSignal = true
+        else
+            redstone.setOutput("back", false)
+            outputSignal = false
+        end
+    end
+
+    mrsalib.createButton("Redstone", maxX / 2 - 10, maxY / 2 - 3, 20, 5, "toggle", colors.red, setRedstone)
+
+    while true do
+        mrsalib._drawButtons(true)
+        mrsalib.onClick({os.pullEvent("mouse_click")})
+    end
 ```
 
 # Functions

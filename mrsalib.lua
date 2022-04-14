@@ -79,8 +79,8 @@ end
 --_drawButtons(true)
 
 
-while true do
-onClick({os.pullEvent("mouse_click")})
+--while true do
+--onClick({os.pullEvent("mouse_click")})
 
-_drawButtons(true)
-end
+--_drawButtons(true)
+--end
