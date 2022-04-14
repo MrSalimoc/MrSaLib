@@ -1,5 +1,9 @@
 local _libButtons = {}
 
+local _monitor
+local _isMonitor = false
+local screen
+
 function createButton(text, minX, minY, maxX, maxY, buttonType, color, clickCallback, defaultState)
     local _newButton = {}
     _newButton.id = table.maxn(_libButtons) + 1
@@ -24,29 +28,34 @@ function createButton(text, minX, minY, maxX, maxY, buttonType, color, clickCall
 end
 
 function _drawButtons(bool)
+    if _isMonitor == false then
+        screen = screen
+    else
+        screen = _monitor
+    end
     for k,v in ipairs(_libButtons) do
-        term.setCursorPos(v.minX, v.minY)
+        screen.setCursorPos(v.minX, v.minY)
         if v.buttonType == "toggle" then
             if v.toggled then
-                term.setBackgroundColor(v.color)
+                screen.setBackgroundColor(v.color)
             elseif v.toggled == true then
-                term.setBackgroundColor(v.color)
+                screen.setBackgroundColor(v.color)
             elseif v.toggled == false then
-                term.setBackgroundColor(colors.gray)
+                screen.setBackgroundColor(colors.gray)
             end
         else
-            term.setBackgroundColor(v.color)
+            screen.setBackgroundColor(v.color)
         end
         for x = v.minX, v.minX + v.maxX do            
             for y = v.minY, v.minY + v.maxY do
-                term.setCursorPos(x, y)
+                screen.setCursorPos(x, y)
                 print(" ")
             end
         end
         local textPos = v.maxX - #v.text
-        term.setCursorPos(v.minX + textPos / 2, v.minY + v.maxY / 2)
+        screen.setCursorPos(v.minX + textPos / 2, v.minY + v.maxY / 2)
         print(v.text)
-        term.setBackgroundColor(colors.black)
+        screen.setBackgroundColor(colors.black)
     end
 end
 
@@ -68,6 +77,16 @@ function setButtonText(buttonId, text)
     end
 end
 
+function _setMonitor(side)
+    if side ~= "none" then
+        _monitor = peripheral.wrap(side)
+        _isMonitor = true
+    else
+        _monitor = nil
+        _isMonitor = false
+    end
+end
+
 function onClick(event)
     local clickedButton = _getClickedButton(event[3], event[4])
     for k,v in ipairs(_libButtons) do
@@ -84,7 +103,7 @@ function onClick(event)
 end
 
 --function testButton()
---    term.setCursorPos(40,40)
+--    screen.setCursorPos(40,40)
 --    print("print")
 --end
 
