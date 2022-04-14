@@ -1,5 +1,5 @@
-# MrSaLib
-CC: Tweaked LUA API for computers.
+# MrSaLib 1.0
+MrSaLib is a Computer Craft (CC:Tweaked) API adding a fast and simple way to create GUI on computers in Minecraft.
 
 ## Install
 You can install the lib with the following command inside Computer terminal.
@@ -16,29 +16,30 @@ In order to make it work in your program you'll need thoses lines:
     end
 ```
 ### Example
-Here an example of a button in the center of the screen. When toggled on it will power redstone from the back of the computer.
+Here an example of a button in the center of the screen. When toggled on, it will power redstone from the back of the computer.  
 In order to make it work in your program you'll need thoses lines (`pastebin get 8Hm0Br0n example`):
 ```LUA
-    os.loadAPI("mrsalib.lua")
-    local maxX, maxY = term.getSize()
-    local outputSignal = false
+os.loadAPI("mrsalib.lua")
+local maxX, maxY = term.getSize()
+local outputSignal = false
 
-    function setRedstone()
-        if outputSignal == false then
-            redstone.setOutput("back", true)
-            outputSignal = true
-        else
-            redstone.setOutput("back", false)
-            outputSignal = false
-        end
+function setRedstone()
+    if outputSignal == false then
+        redstone.setOutput("back", true)
+        outputSignal = true
+    else
+        redstone.setOutput("back", false)
+        outputSignal = false
     end
+end
 
-    mrsalib.createButton("Redstone", maxX / 2 - 10, maxY / 2 - 3, 20, 5, "toggle", colors.red, setRedstone)
+-- mrsalib._setMonitor(side) for monitor support
+mrsalib.createButton("Redstone", maxX / 2 - 10, maxY / 2 - 3, 20, 5, "toggle", colors.red, setRedstone)
 
-    while true do
-        mrsalib._drawButtons(true)
-        mrsalib.onClick({os.pullEvent("mouse_click")})
-    end
+while true do
+    mrsalib._drawButtons(true)
+    mrsalib.onClick({os.pullEvent("mouse_click")}) -- change for "monitor_touch" if using _setMonitor(side)
+end
 ```
 
 # Functions
@@ -61,7 +62,7 @@ In order to make it work in your program you'll need thoses lines (`pastebin get
   `maxY` The length of the button on the ***y*** axis  
   `buttonType` The type of the button (`normal | toggle`)  
   `color` The color of the button using [Colors API](https://www.computercraft.info/wiki/Colors_(API))  
-  `clickCallback` The callback pointer  
+  `clickCallback` The callback pointer *(you can get button data by getting it from param)*  
 
   **Return Values:**
 
