@@ -1,4 +1,5 @@
 local _libButtons = {}
+local _libLabels = {}
 
 local _monitor
 local _isMonitor = false
@@ -25,6 +26,20 @@ function createButton(text, minX, minY, maxX, maxY, buttonType, color, clickCall
         end
     end
     table.insert(_libButtons, _newButton)
+end
+
+function createLabel(text, minX, minY, maxX, maxY, labelType, color, value)
+    local _newLabel = {}
+    _newLabel.id = table.maxn(_libLabels) + 1
+    _newLabel.text = text
+    _newLabel.minX = minX
+    _newLabel.minY = minY
+    _newLabel.maxX = maxX - 1
+    _newLabel.maxY = maxY - 1
+    _newLabel.labelType = labelType
+    _newLabel.color = color
+    _newLabel.value = value
+    table.insert(_libLabels, _newLabel)
 end
 
 function _drawButtons(bool)
