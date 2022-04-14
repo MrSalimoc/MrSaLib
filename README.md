@@ -8,12 +8,12 @@ pastebin get jZN0hUQG mrsalib.lua
 ```
 In order to make it work in your program you'll need thoses lines:
 ```LUA
-    os.loadAPI("mrsalib.lua")
+os.loadAPI("mrsalib.lua")
 
-    while true do
-        mrsalib._drawButtons(true)
-        mrsalib.onClick({os.pullEvent("mouse_click")})
-    end
+while true do
+    mrsalib._drawButtons(true)
+    mrsalib.onClick({os.pullEvent("mouse_click")})
+end
 ```
 ### Example
 Here an example of a button in the center of the screen. When toggled on, it will power redstone from the back of the computer.  
@@ -76,6 +76,39 @@ end
   createButton("Button", 2, 2, 10, 3, "normal", colors.red, testButton)
   
   -- The red button should turn on the redstone signal at the back of the computer when clicked
+  ```
+<hr>
+
+## createLabel
+  **Description:**
+
+  > Draw a rectangle for printing text or dynamic values
+
+  **Parameters:**
+
+  ```
+  (text, minX, minY, maxX, maxY, labelType, color, value)
+  ```
+
+  `text` The text of the label  
+  `minX` The ***x*** coordinate where the label should start  
+  `minY` The ***y*** coordinate where the label should start  
+  `maxX` The length of the label on the ***x*** axis  
+  `maxY` The length of the label on the ***y*** axis  
+  `labelType` The type of the label (`text | number | both`)  
+  `color` The color of the label using [Colors API](https://www.computercraft.info/wiki/Colors_(API))  
+  `value` The value of the label
+
+  **Return Values:**
+
+  > true on success, nil on failure.
+
+  ```LUA
+  --TODO
+
+  createLabel("Label", 2, 2, 10, 3, "both", colors.magenta, 10)
+  
+  -- The magenta label should print both "Label" and "10"
   ```
 <hr>
 
