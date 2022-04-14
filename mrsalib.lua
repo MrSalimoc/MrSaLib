@@ -29,7 +29,7 @@ end
 
 function _drawButtons(bool)
     if _isMonitor == false then
-        screen = screen
+        screen = term
     else
         screen = _monitor
     end
