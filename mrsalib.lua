@@ -49,12 +49,12 @@ function _drawButtons(bool)
         for x = v.minX, v.minX + v.maxX do            
             for y = v.minY, v.minY + v.maxY do
                 screen.setCursorPos(x, y)
-                print(" ")
+                screen.write(" ")
             end
         end
         local textPos = v.maxX - #v.text
         screen.setCursorPos(v.minX + textPos / 2, v.minY + v.maxY / 2)
-        print(v.text)
+        screen.write(v.text)
         screen.setBackgroundColor(colors.black)
     end
 end
