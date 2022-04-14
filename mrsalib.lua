@@ -2,6 +2,7 @@ local _libButtons = {}
 
 function createButton(text, minX, minY, maxX, maxY, buttonType, color, clickCallback, defaultState)
     local _newButton = {}
+    _newButton.id = table.maxn(_libButtons)
     _newButton.text = text
     _newButton.minX = minX
     _newButton.minY = minY
@@ -53,8 +54,16 @@ function _getClickedButton(posX, posY)
     for k,v in ipairs(_libButtons) do
         if posX >= v.minX and posX <= v.minX + v.maxX then
             if posY >= v.minY and posY <= v.minY + v.maxY then
-                return v.text
+                return v.id
             end
+        end
+    end
+end
+
+function setButtonText(buttonId, text)
+    for k,v in ipairs(_libButtons) do
+        if buttonId == v.id then
+            v.text = text
         end
     end
 end
@@ -62,7 +71,7 @@ end
 function onClick(event)
     local clickedButton = _getClickedButton(event[3], event[4])
     for k,v in ipairs(_libButtons) do
-        if clickedButton == v.text then
+        if clickedButton == v.id then
             v.clickCallback()
             if v.buttonType == "toggle" and v.toggled == false then
                 v.toggled = true
